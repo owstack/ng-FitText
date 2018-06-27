@@ -103,6 +103,16 @@
               resizer();
             });
 
+            scope.$watch(function() {
+              return [
+                scope.$eval(attrs.ngBindHtml),
+                parent[0].offsetWidth,
+                element[0].offsetWidth
+              ].join('_');
+            }, function() {
+              resizer();
+            });
+
             config.debounce
               ? angular.element(window).bind('resize', config.debounce(function(){ scope.$apply(resizer)}, config.delay))
               : angular.element(window).bind('resize', function(){ scope.$apply(resizer)});
